@@ -6,12 +6,16 @@
     <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
     <RestoreAdditionalProjectSources>..\packages</RestoreAdditionalProjectSources>
+    <BlazorLinkOnBuild>false</BlazorLinkOnBuild> <!-- Just to make the builds faster -->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="$(AspNetCoreVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="$(AspNetCoreVersion)" PrivateAssets="all" />
     <PackageReference Include="RazorComponents.MaterialDesign" Version="0.1.0-alpha-20190610102728" />
+
+    <!-- Workaround for preview 6 unboxing issue when linker is disabled -->
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Mono" Version="0.10.0-preview7-00004" />
   </ItemGroup>
 
   <ItemGroup>
