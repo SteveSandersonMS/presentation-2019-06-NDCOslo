@@ -17,7 +17,7 @@
 
   <!-- Note: this is not necessary since preview 6, since the framework now has a built-in mechanism for obtaining static content from referenced packages/projects. -->
   <Target Name="CopyStaticAssets" BeforeTargets="CoreCompile">
-    <ItemGroup><_FilesToCopy Include="..\CarBuyer.RazorComponents\wwwroot\**" /></ItemGroup>
+    <ItemGroup><_FilesToCopy Include="..\CarBuyer.ServerSide\wwwroot\**" /></ItemGroup>
     <Copy SourceFiles="@(_FilesToCopy)" DestinationFolder="wwwroot\%(RecursiveDir)" />
   </Target>
 
