@@ -5,21 +5,18 @@
     <DataAnnotationsValidator />
     <MdcDialog @ref="dialog" Title="Log in">
         <Body>
-            <p>
-                <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
-                <ValidationMessage For="@(() => credentials.UserName)" />
-            </p>
-            <p>
-                <MdcTextField Type="password" Label="Password" @bind-Value="@credentials.Password" />
-                <ValidationMessage For="@(() => credentials.Password)" />
-            </p>
-            <p>
-                <div class="mdc-form-field">
-                    <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
-                    <label for="accept-terms">I accept the terms</label>
-                </div>
-                <ValidationMessage For="@(() => credentials.AcceptTerms)" />
-            </p>
+            <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
+            <ValidationMessage For="@(() => credentials.UserName)" />
+
+            <MdcTextField Type="password" Label="Password" @bind-Value="@credentials.Password" />
+            <ValidationMessage For="@(() => credentials.Password)" />
+
+            <div class="mdc-form-field">
+                <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
+                <label for="accept-terms">I accept the terms</label>
+            </div>
+            <ValidationMessage For="@(() => credentials.AcceptTerms)" />
+
             @if (lastLoginFailed)
             {
                 <p class="validation-message">Login failed. Check your password.</p>

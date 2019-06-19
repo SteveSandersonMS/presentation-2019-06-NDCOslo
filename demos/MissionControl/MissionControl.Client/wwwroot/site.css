@@ -120,10 +120,6 @@ h1 {
     border-bottom: 2px solid red !important;
 }
 
-.mdc-text-field + .validation-message {
-    margin-top: 0.3rem;
-}
-
 .pin-map {
     position: absolute !important;
     top: 64px; bottom: 0; left: 0; right: 0;
@@ -199,4 +195,19 @@ table.mdc-card {
 
 .mdc-card tr:not(:last-child) td, .mdc-card th {
     border-bottom: 1px solid #ddd;
+}
+
+.mdc-dialog__content > .mdc-text-field {
+    display: block;
+    margin: 1rem 0;
+}
+
+    .mdc-dialog__content > .mdc-text-field + .validation-message {
+        margin-top: -0.8rem;
+        margin-bottom: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+.mdc-dialog__content {
+    padding-bottom: 0.3rem !important;
 }

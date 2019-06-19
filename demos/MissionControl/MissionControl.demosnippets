@@ -10,6 +10,10 @@ TAB: 02 Auth
 
 [Authorize]
 
+- @attribute [Authorize] for Agents.razor
+
+@attribute [Authorize]
+
 - Initial <AuthorizeView>
 
 <AuthorizeView>
@@ -24,29 +28,27 @@ TAB: 02 Auth
         <span>
             Hello, <strong>@context.User.Identity.Name</strong>!
         </span>
-        <MdcButton OnClick="">Log out</MdcButton>
+        <MdcButton OnClick="@loginDialog.LogOut">Log out</MdcButton>
     </Authorized>
     <NotAuthorized>
-        <MdcButton OnClick="">Log in</MdcButton>
+        <MdcButton OnClick="@loginDialog.LogIn">Log in</MdcButton>
     </NotAuthorized>
 </AuthorizeView>
 
-- <LoginDialog> with @functions for ref
-
-<LoginDialog @ref="@loginDialog" />
+<LoginDialog @ref="loginDialog" />
 
 @functions {
     LoginDialog loginDialog;
 }
 
+- Inject TokenProvider
+
+@inject TokenAuthenticationStateProvider TokenProvider
+
 - Get authHeader to pass in request
 
 var token = await TokenProvider.GetTokenAsync();
 var authHeader = new AuthenticationHeaderValue("Bearer", token);
-
-- @attribute [Authorize]
-
-@attribute [Authorize]
 
 TAB: 03 Validation
 
