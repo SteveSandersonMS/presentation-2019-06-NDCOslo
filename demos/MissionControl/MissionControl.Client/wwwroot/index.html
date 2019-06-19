@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Mission Control</title>
+    <base href="/" />
+    <script src="localStorage.js"></script>
+    <link href="_content/RazorComponentsMaterialDesign/styles.css" rel="stylesheet" />
+    <script src="_content/RazorComponentsMaterialDesign/script.js"></script>
+    <script src="_content/RazorComponentsMaterialDesign/lib/material-components-web.js"></script>
+    <link href="site.css" rel="stylesheet" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css" rel="stylesheet" />
+</head>
+<body class="mdc-typography">
+
+    <app>
+        <!-- "Loading" spinner -->
+        <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate">
+            <div class="mdc-linear-progress__buffer"></div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar"><span class="mdc-linear-progress__bar-inner"></span></div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar"><span class="mdc-linear-progress__bar-inner"></span></div>
+        </div>
+    </app>
+    
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/PinMapLibrary/PinMap.js"></script>
+
+</body>
+</html>

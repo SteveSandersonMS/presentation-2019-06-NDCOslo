@@ -1,0 +1,40 @@
+﻿<span class="@Class">@animationCurrentValue.ToString(Format)</span>
+
+@functions {
+    bool isFirst = true;
+    bool isAnimating;
+    decimal animationCurrentValue;
+
+    [Parameter] string Class { get; set; }
+    [Parameter] decimal Value { get; set; }
+    [Parameter] string Format { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (isFirst)
+        {
+            animationCurrentValue = Value;
+            isFirst = false;
+        }
+        else if (!isAnimating)
+        {
+            RunAnimation();
+        }
+    }
+
+    async void RunAnimation()
+    {
+        isAnimating = true;
+
+        while (Math.Abs(Value - animationCurrentValue) > 1)
+        {
+            animationCurrentValue += (Value - animationCurrentValue) * 0.3m;
+            StateHasChanged();
+            await Task.Delay(16);
+        }
+
+        animationCurrentValue = Value;
+        StateHasChanged();
+        isAnimating = false;
+    }
+}

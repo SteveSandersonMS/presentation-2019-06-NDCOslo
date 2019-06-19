@@ -1,0 +1,178 @@
+﻿TAB: 01 Intro
+
+- <MdcLinearProgress />
+
+<MdcLinearProgress />
+
+TAB: 02 Auth
+
+- [Authorize] for AgentsController
+
+[Authorize]
+
+- Initial <AuthorizeView>
+
+<AuthorizeView>
+	Hello, <strong>@context.User.Identity.Name</strong>!
+</AuthorizeView>
+
+- Better <AuthorizeView>
+
+<AuthorizeView>
+    <Authorized>
+        <i class="material-icons">account_circle</i>
+        <span>
+            Hello, <strong>@context.User.Identity.Name</strong>!
+        </span>
+        <MdcButton OnClick="">Log out</MdcButton>
+    </Authorized>
+    <NotAuthorized>
+        <MdcButton OnClick="">Log in</MdcButton>
+    </NotAuthorized>
+</AuthorizeView>
+
+- <LoginDialog> with @functions for ref
+
+<LoginDialog @ref="@loginDialog" />
+
+@functions {
+    LoginDialog loginDialog;
+}
+
+- Get authHeader to pass in request
+
+var token = await TokenProvider.GetTokenAsync();
+var authHeader = new AuthenticationHeaderValue("Bearer", token);
+
+- @attribute [Authorize]
+
+@attribute [Authorize]
+
+TAB: 03 Validation
+
+- LoginCredentials with DataAnnotations attributes
+
+public class LoginCredentials
+{
+    [Required, MaxLength(10)]
+    public string UserName { get; set; }
+
+    [Required, MinLength(2), MaxLength(30)]
+    public string Password { get; set; }
+
+    [Required, Range(typeof(bool), "true", "true", ErrorMessage = "You must accept terms")]
+    public bool AcceptTerms { get; set; }
+}
+
+- <EditForm Model="@credentials">
+
+<EditForm Model="@credentials">
+
+- <DataAnnotationsValidator />
+
+<DataAnnotationsValidator />
+
+- <ValidationSummary />
+
+<ValidationSummary />
+
+- <ValidationMessage For="@(() => credentials.UserName)" />
+
+<ValidationMessage For="@(() => credentials.UserName)" />
+
+- <p> to edit AcceptsTerms
+
+<p>
+    <div class="mdc-form-field">
+        <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
+        <label for="accept-terms">I accept the terms</label>
+    </div>
+    <ValidationMessage For="@(() => credentials.AcceptTerms)" />
+</p>
+
+TAB: 04 Static content
+
+- <script> tag for PinMap.js
+
+<script src="_content/PinMapLibrary/PinMap.js"></script>
+
+- Initial PinMap content
+
+<div class="pin-map">
+    TODO: Render map
+</div>
+
+- @inject IJSRuntime
+
+@inject Microsoft.JSInterop.IJSRuntime JS
+
+- @functions with OnAfterRenderAsync
+
+@functions {
+    protected override async Task OnAfterRenderAsync()
+    {
+        var coords = new[] { -74.00633, 40.71341 };
+
+        // Upgrade the <div> into an interactive map
+        await JS.InvokeAsync<object>(
+            "PinMap.createOrUpdate",
+            mapElem,
+            coords);
+    }
+}
+
+- Sample <map-pin>
+
+    <map-pin data-longitude="-74.00633" data-latitude="40.71341">
+        <h4>Some caption</h4>
+    </map-pin>
+
+- [Parameter] to receive agents enumerable
+
+[Parameter] IEnumerable<MissionControl.Shared.Agent> Data { get; set; }
+
+- @foreach to render all <map-pin>s
+
+    @foreach (var item in Data)
+    {
+        <map-pin data-longitude="@item.Longitude" data-latitude="@item.Latitude">
+            <h4>@item.Name</h4>
+            <p><strong>Mission:</strong> @item.Mission</p>
+        </map-pin>
+    }
+
+TAB: 05 Generic templated components
+
+- @typeparam TPin
+
+@typeparam TPin
+
+- [Parameter]s for PinLongitude/PinLatitude
+
+[Parameter] Func<TPin, double> PinLongitude { get; set; }
+[Parameter] Func<TPin, double> PinLatitude { get; set; }
+
+- [Parameter] RenderFragment<TPin> PinTemplate { get; set; }
+
+[Parameter] RenderFragment<TPin> PinTemplate { get; set; }
+
+- attribs: PinLongitude="..." PinLatitude="..."
+
+PinLongitude="@(x => x.Longitude)" PinLatitude="@(x => x.Latitude)"
+
+- <PinTemplate> contents
+
+<h4>@context.Name</h4>
+<p><strong>Mission:</strong> @context.Mission</p>
+
+- (Array.Empty<DateTime>())
+
+(Array.Empty<DateTime>())
+
+TAB: 06 CarBuyer
+
+- Register service worker
+
+<script>
+    navigator.serviceWorker.register('service-worker.js');
+</script>

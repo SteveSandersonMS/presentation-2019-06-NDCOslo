@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<MdcTopAppBar Title="Mission Control" Fixed="true" OnNavClicked="@(() => sidebar.Toggle())" ScrollTarget="#main-content">
+    <span class="mdc-top-app-bar-content">
+        <LoginDisplay />
+    </span>
+</MdcTopAppBar>
+
+<MdcDrawer @ref="@sidebar" StartOpen="true" CloseOnNavigate="false">
+    <NavMenu />
+</MdcDrawer>
+
+<main class="main-content" id="main-content" style="position:relative; width: 100%;">
+    <div class="mdc-top-app-bar--fixed-adjust">
+        @Body
+    </div>
+</main>
+
+@functions {
+    MdcDrawer sidebar;
+}

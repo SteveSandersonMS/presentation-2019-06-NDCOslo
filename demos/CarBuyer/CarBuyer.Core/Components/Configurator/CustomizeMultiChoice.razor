@@ -1,0 +1,39 @@
+﻿<div class="option">
+    <div>
+        <h4>@Data.Name</h4>
+        <ul class="option-description">
+            @foreach (var note in ChosenOption.Notes ?? Enumerable.Empty<string>())
+            {
+                <li>@note</li>
+            }
+        </ul>
+    </div>
+    <ChoiceGroup Class="radio" @bind-Value="@ChosenOption">
+        @foreach (var choice in Data.Choices)
+        {
+            <Choice Value="@choice">
+                @choice.Name
+                @if (choice.Price > 0)
+                {
+                    <p>@choice.Price.ToString("c")</p>
+                }
+            </Choice>
+        }
+    </ChoiceGroup>
+</div>
+
+@functions {
+    [Parameter] MultiChoiceCustomization Data { get; set; }
+    [Parameter] ICustomizationChoice Value { get; set; }
+    [Parameter] EventCallback<ICustomizationChoice> ValueChanged { get; set; }
+
+    private MultiChoiceOption ChosenOption
+    {
+        get => (MultiChoiceOption)Value;
+        set
+        {
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

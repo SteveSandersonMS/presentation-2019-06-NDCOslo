@@ -1,0 +1,31 @@
+﻿<div class="option">
+    <div>
+        <h4>@Data.Name</h4>
+        <p>
+            @ValueColor.Name
+            (@(ValueColor.Price == 0 ? "included" : ValueColor.Price.ToString("c")))
+        </p>
+    </div>
+    <ChoiceGroup Class="color-options" @bind-Value="@ValueColor">
+        @foreach (var color in Data.Choices)
+        {
+            <Choice Value="@color" Style="@($"background-color: {color.RgbPreview}")" />
+        }
+    </ChoiceGroup>
+</div>
+
+@functions {
+    [Parameter] ColorCustomization Data { get; set; }
+    [Parameter] ICustomizationChoice Value { get; set; }
+    [Parameter] EventCallback<ICustomizationChoice> ValueChanged { get; set; }
+
+    private PaintColor ValueColor
+    {
+        get => (PaintColor)Value;
+        set
+        {
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

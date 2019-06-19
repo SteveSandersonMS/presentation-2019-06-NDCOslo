@@ -1,0 +1,31 @@
+﻿<div class="option @SelectionClass">
+    <label>
+        <input type="checkbox" @bind="@IsSelected" />
+        <div>
+            <h4>@Data.Name</h4>
+            <p>@Data.Description</p>
+        </div>
+    </label>
+    <div>@Data.Price.ToString("c")</div>
+</div>
+
+@functions {
+    [Parameter] BooleanCustomization Data { get; set; }
+    [Parameter] ICustomizationChoice Value { get; set; }
+    [Parameter] EventCallback<ICustomizationChoice> ValueChanged { get; set; }
+
+    private bool IsSelected
+    {
+        get => Value != BooleanCustomizationChoice.NotChosen;
+        set
+        {
+            Value = value
+                ? new BooleanCustomizationChoice { Price = Data.Price }
+                : BooleanCustomizationChoice.NotChosen;
+            ValueChanged.InvokeAsync(Value);
+        }
+    }
+
+    string SelectionClass
+        => IsSelected ? "selected" : string.Empty;
+}

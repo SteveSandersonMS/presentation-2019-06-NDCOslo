@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29004.115
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionControl.Server", "MissionControl.Server\MissionControl.Server.csproj", "{37E2AE7E-8F65-435F-8928-474A075D0F4D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionControl.Client", "MissionControl.Client\MissionControl.Client.csproj", "{452FB76D-88E2-4A9F-9516-DC8751C2C13E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MissionControl.Shared", "MissionControl.Shared\MissionControl.Shared.csproj", "{022A0532-2DE6-4DC6-827E-68CCFF05935A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{AA98AA43-B01C-42F1-A34B-D11FDCA53E9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinMapLibrary", "PinMapLibrary\PinMapLibrary.csproj", "{978F782D-8534-408B-95E7-19898F610504}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{22D6A439-214C-4641-A697-2C4FBDC64725}"
+	ProjectSection(SolutionItems) = preProject
+		MissionControl.demosnippets = MissionControl.demosnippets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37E2AE7E-8F65-435F-8928-474A075D0F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E2AE7E-8F65-435F-8928-474A075D0F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E2AE7E-8F65-435F-8928-474A075D0F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E2AE7E-8F65-435F-8928-474A075D0F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{452FB76D-88E2-4A9F-9516-DC8751C2C13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{452FB76D-88E2-4A9F-9516-DC8751C2C13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{452FB76D-88E2-4A9F-9516-DC8751C2C13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{452FB76D-88E2-4A9F-9516-DC8751C2C13E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{022A0532-2DE6-4DC6-827E-68CCFF05935A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{022A0532-2DE6-4DC6-827E-68CCFF05935A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{022A0532-2DE6-4DC6-827E-68CCFF05935A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{022A0532-2DE6-4DC6-827E-68CCFF05935A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978F782D-8534-408B-95E7-19898F610504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978F782D-8534-408B-95E7-19898F610504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978F782D-8534-408B-95E7-19898F610504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978F782D-8534-408B-95E7-19898F610504}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{978F782D-8534-408B-95E7-19898F610504} = {AA98AA43-B01C-42F1-A34B-D11FDCA53E9F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2270297-E5BA-4E77-A475-4DA83EEC753E}
+	EndGlobalSection
+EndGlobal

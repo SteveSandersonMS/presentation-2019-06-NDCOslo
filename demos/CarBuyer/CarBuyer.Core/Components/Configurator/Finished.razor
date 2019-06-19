@@ -1,0 +1,15 @@
+﻿@page "/done"
+<div class="content">
+
+    <h3>All done</h3>
+
+    <p>
+        Congratulations! You'll soon be the proud owner of a
+        <strong>@Order.Model.Name</strong>.
+    </p>
+
+</div>
+
+@functions {
+    [CascadingParameter] CustomerOrder Order { get; set; }
+}

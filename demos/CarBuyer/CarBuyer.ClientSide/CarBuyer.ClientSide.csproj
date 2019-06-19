@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="$(AspNetCoreVersion)" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="$(AspNetCoreVersion)" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarBuyer.Core\CarBuyer.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Note: this is not necessary since preview 6, since the framework now has a built-in mechanism for obtaining static content from referenced packages/projects. -->
+  <Target Name="CopyStaticAssets" BeforeTargets="CoreCompile">
+    <ItemGroup><_FilesToCopy Include="..\CarBuyer.RazorComponents\wwwroot\**" /></ItemGroup>
+    <Copy SourceFiles="@(_FilesToCopy)" DestinationFolder="wwwroot\%(RecursiveDir)" />
+  </Target>
+
+</Project>

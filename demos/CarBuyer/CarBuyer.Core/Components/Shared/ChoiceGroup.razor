@@ -1,0 +1,29 @@
+﻿@typeparam TValue
+@implements IChoiceGroup
+<div class="multi-choice @Class @SelectedClass">
+    <CascadingValue Value="@this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@functions {
+    // Typical parameters: attributes and child content
+    [Parameter] RenderFragment ChildContent { get; set; }
+    [Parameter] string Class { get; set; }
+
+    // Hook into binding system via Foo + FooChanged pattern
+    [Parameter] public TValue Value { get; private set; }
+    [Parameter] EventCallback<TValue> ValueChanged { get; set; }
+
+    string SelectedClass
+        => Value != null ? "has-selection" : "";
+
+    object IChoiceGroup.Value
+        => Value;
+
+    Task IChoiceGroup.SetValueAsync(object value)
+    {
+        Value = (TValue)value;
+        return ValueChanged.InvokeAsync(Value);
+    }
+}

@@ -1,0 +1,24 @@
+﻿@inject ICatalogService catalogService
+@if (order == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <CascadingValue Value="@order" IsFixed="true">
+        <CascadingValue Value="@catalog" IsFixed="true">
+            <Router AppAssembly="typeof(App).Assembly" />
+        </CascadingValue>
+    </CascadingValue>
+}
+
+@functions {
+    private CustomerOrder order;
+    private ProductCatalog catalog;
+
+    protected override async Task OnInitAsync()
+    {
+        catalog = await catalogService.FetchCatalogAsync();
+        order = new CustomerOrder(catalog);
+    }
+}

@@ -1,0 +1,46 @@
+﻿@page "/delivery"
+@inject IUriHelper UriHelper
+
+<div class="content">
+    <EditForm EditContext="@editContext">
+        <h3>Your account</h3>
+        <div class="details-grid account">
+            <FormField Label="First name" @bind-Value="@Order.Delivery.FirstName" />
+            <FormField Label="Last name" @bind-Value="@Order.Delivery.LastName" />
+            <FormField Label="E-mail" @bind-Value="@Order.Delivery.Email" />
+            <FormField Label="Phone" @bind-Value="@Order.Delivery.Phone" />
+        </div>
+
+        <h3>Address</h3>
+        <div class="details-grid address">
+            <FormField Class="full-width" Label="Line 1" @bind-Value="@Order.Delivery.AddressLine1" />
+            <FormField Class="full-width" Label="Line 2" @bind-Value="@Order.Delivery.AddressLine2" />
+            <FormField Label="City" @bind-Value="@Order.Delivery.AddressCity" />
+            <FormField Label="State" @bind-Value="@Order.Delivery.AddressState" />
+        </div>
+
+        <DataAnnotationsValidator />
+    </EditForm>
+
+</div>
+
+<SummaryFooter Order="@Order" OnNext="SubmitOrder" />
+
+@functions {
+    EditContext editContext;
+    [CascadingParameter] CustomerOrder Order { get; set; }
+
+    protected override void OnInit()
+    {
+        editContext = new EditContext(Order.Delivery ?? new object());
+    }
+
+    void SubmitOrder()
+    {
+        if (editContext.Validate())
+        {
+            // TODO: Actually store order somewhere
+            UriHelper.NavigateTo("done");
+        }
+    }
+}

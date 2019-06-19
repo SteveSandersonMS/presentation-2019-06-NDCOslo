@@ -1,0 +1,60 @@
+@inject HttpClient Http
+@inject TokenAuthenticationStateProvider AuthStateProvider
+
+<EditForm Model="@credentials" OnValidSubmit="@SubmitCredentials">
+    <DataAnnotationsValidator />
+    <MdcDialog @ref="dialog" Title="Log in">
+        <Body>
+            <p>
+                <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
+                <ValidationMessage For="@(() => credentials.UserName)" />
+            </p>
+            <p>
+                <MdcTextField Type="password" Label="Password" @bind-Value="@credentials.Password" />
+                <ValidationMessage For="@(() => credentials.Password)" />
+            </p>
+            <p>
+                <div class="mdc-form-field">
+                    <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
+                    <label for="accept-terms">I accept the terms</label>
+                </div>
+                <ValidationMessage For="@(() => credentials.AcceptTerms)" />
+            </p>
+            @if (lastLoginFailed)
+            {
+                <p class="validation-message">Login failed. Check your password.</p>
+            }
+        </Body>
+        <Buttons>
+            <MdcButton Type="submit">Log in</MdcButton>
+            <MdcButton DialogAction="close" ButtonStyle="@MdcButton.None">Cancel</MdcButton>
+        </Buttons>
+    </MdcDialog>
+</EditForm>
+
+@functions {
+    MdcDialog dialog;
+    LoginCredentials credentials = new LoginCredentials();
+    bool lastLoginFailed;
+
+    public Task LogIn()
+        => dialog.ShowAsync();
+
+    public Task LogOut()
+        => AuthStateProvider.SetTokenAsync(null);
+
+    async Task SubmitCredentials()
+    {
+        var result = await Http.PostJsonAsync<LoginResult>("api/user/login", credentials);
+        lastLoginFailed = result.Token == null;
+        if (!lastLoginFailed)
+        {
+            // Success! Store token in underlying auth state service
+            await AuthStateProvider.SetTokenAsync(result.Token);
+
+            // Reset UI state
+            await dialog.HideAsync();
+            credentials = new LoginCredentials();
+        }
+    }
+}

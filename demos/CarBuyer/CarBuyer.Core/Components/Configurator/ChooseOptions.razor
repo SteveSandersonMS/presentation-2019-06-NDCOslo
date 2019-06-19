@@ -1,0 +1,32 @@
+﻿@page "/options"
+<div class="content">
+
+    @foreach (var customizationGroup in Order.Model?.CustomizationGroups ?? Enumerable.Empty<CustomizationGroup>())
+    {
+        <h3>@customizationGroup.Name</h3>
+
+        @foreach (var customization in customizationGroup.Customizations)
+        {
+            switch (customization)
+            {
+                case ColorCustomization colorCustomization:
+                    <CustomizeColor Data="@colorCustomization" @bind-Value="@Order.Customizations[customization]" />
+                    break;
+                case MultiChoiceCustomization multiChoiceCustomization:
+                    <CustomizeMultiChoice Data="@multiChoiceCustomization" @bind-Value="@Order.Customizations[customization]" />
+                    break;
+                case BooleanCustomization booleanCustomization:
+                    <CustomizeBoolean Data="@booleanCustomization" @bind-Value="@Order.Customizations[customization]" />
+                    break;
+            }
+        }
+    }
+
+</div>
+
+<SummaryFooter Order="@Order" NextUrl="finance" />
+
+@functions {
+    [CascadingParameter] ProductCatalog Catalog { get; set; }
+    [CascadingParameter] CustomerOrder Order { get; set; }
+}

@@ -1,0 +1,105 @@
+﻿@page "/finance"
+<div class="content">
+
+    <div class="option">
+        <h4>Finance</h4>
+        <ChoiceGroup Class="radio" @bind-Value="@Order.FinanceType">
+            <Choice Value="@FinanceType.Cash">Cash</Choice>
+            <Choice Value="@FinanceType.Loan">Loan</Choice>
+        </ChoiceGroup>
+    </div>
+
+    @if (Order.FinanceType == FinanceType.Cash)
+    {
+        <table class="finance-info">
+            <tbody>
+                <tr>
+                    <td class="label">Deposit due today:</td>
+                    <td>@((Order.Quote * 0.1m).ToString("c"))</td>
+                </tr>
+                <tr>
+                    <td class="label">Balance due on delivery:</td>
+                    <td>@((Order.Quote * 0.9m).ToString("c"))</td>
+                </tr>
+                <tr>
+                    <td class="label">Estimated delivery:</td>
+                    <td>3-5 weeks</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else if (Order.FinanceType == FinanceType.Loan)
+    {
+        <div class="loan-options">
+            <div>
+                <h4>Downpayment</h4>
+                <ChoiceGroup Class="radio" @bind-Value="@Order.LoanDownpaymentPercent">
+                    @foreach (var percentage in Catalog.LoanDownpaymentPercents)
+                    {
+                        <Choice Value="@percentage">
+                            @percentage%
+                            <p class="price">@CalculateDownpayment(percentage).ToString("c0")</p>
+                        </Choice>
+                    }
+                </ChoiceGroup>
+            </div>
+            <div>
+                <h4>Duration (months)</h4>
+                <ChoiceGroup Class="radio" @bind-Value="@Order.LoanOffer">
+                    @foreach (var offer in Catalog.LoanOffers)
+                    {
+                        <Choice Value="@offer">@offer.DurationMonths</Choice>
+                    }
+                </ChoiceGroup>
+            </div>
+        </div>
+
+        <table class="finance-info">
+            <tbody>
+                <tr>
+                    <td class="label">Vehicle value:</td>
+                    <td>@Order.Quote.ToString("c")</td>
+                </tr>
+                <tr>
+                    <td class="label">Monthly repayment:</td>
+                    <td><AnimatedNumber Value="@CalculateMonthlyRepayment()" Format="c0" /></td>
+                </tr>
+                <tr>
+                    <td class="label">Total repayable:</td>
+                    <td>
+                        <AnimatedNumber Value="@CalculateTotalRepayable()" Format="c0" />
+                        (@Order.LoanOffer.APR% APR)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Estimated delivery:</td>
+                    <td>@Order.Model.EstimatedDelivery</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+
+<SummaryFooter Order="@Order" NextUrl="delivery" />
+
+@functions {
+    [CascadingParameter] ProductCatalog Catalog { get; set; }
+    [CascadingParameter] CustomerOrder Order { get; set; }
+
+    decimal CalculateDownpayment()
+        => CalculateDownpayment(Order.LoanDownpaymentPercent);
+
+    decimal CalculateDownpayment(decimal percentage)
+        => decimal.Round(Order.Quote * percentage / 100);
+
+    decimal CalculateMonthlyRepayment()
+    {
+        var principal = Order.Quote * (1 - Order.LoanDownpaymentPercent / 100m);
+        var rate = Order.LoanOffer.APR / 1200m;
+        var periods = Order.LoanOffer.DurationMonths;
+        return (decimal)principal * rate * (1m + 1m / (decimal)(Math.Pow(1d + (double)rate, (double)periods) - 1));
+    }
+
+    decimal CalculateTotalRepayable()
+        => CalculateDownpayment() + CalculateMonthlyRepayment() * Order.LoanOffer.DurationMonths;
+}

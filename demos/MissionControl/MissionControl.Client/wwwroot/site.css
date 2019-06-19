@@ -1,0 +1,202 @@
+﻿body {
+    height: 100vh;
+    margin: 0;
+    --mdc-theme-primary: #941d80;
+    --mdc-theme-secondary: #ffab40;
+    --mdc-theme-background: #fff;
+}
+
+app {
+    display: flex;
+    height: 100%;
+}
+
+    app > .mdc-linear-progress.mdc-linear-progress--indeterminate {
+        width: 50%;
+        margin: auto;
+        height: 0.35rem;
+    }
+
+h1 {
+    margin-bottom: 0.5rem;
+    margin-top: 1.8rem;
+}
+
+.mdc-drawer {
+    width: 240px !important;
+}
+
+.mdc-drawer-app-content {
+    flex: auto;
+    overflow: auto;
+}
+
+.main-content {
+    overflow: auto;
+    height: 100%;
+    padding: 0 20px;
+    background-color: #ddd;
+}
+
+.main-content-card {
+    display: inherit !important;
+    margin: 20px 0;
+    padding: 1px 24px 32px 24px;
+}
+
+.app-bar {
+    position: absolute;
+}
+
+.mdc-top-app-bar-content {
+    display: flex;
+    align-items: center;
+}
+
+    .mdc-top-app-bar-content i.material-icons {
+        margin-right: 8px
+    }
+
+.mdc-top-app-bar .mdc-button--raised {
+    background-color: rgba(255,255,255,0.15) !important;
+    margin-left: 1rem;
+    height: 1.8rem;
+    padding: 0 0.9rem;
+}
+
+.mdc-dialog button.mdc-button.mdc-button--raised {
+    background-color: var(--mdc-theme-primary, #6200ee) !important;
+    margin-right: 0.5rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+    .page-header .mdc-typography--headline5 {
+        margin: 0.8rem 0;
+    }
+
+    .page-header .page-header-right {
+        margin-left: auto;
+    }
+
+/* When sidebar is open, shrink header bar so it all stays on screen */
+.mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing) + .mdc-drawer-app-content .mdc-top-app-bar {
+    width: calc(100% - 240px);
+}
+
+/* When sidebar is open, shrink main content */
+.mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing) + .main-content {
+    margin-left: 240px;
+    padding-left: 30px;
+}
+
+.mdc-drawer {
+    z-index: 1; /* Behind dialog scrim, but in front of main-content */
+    margin-top: 64px;
+    height: calc(100% - 64px) !important;
+}
+
+    .mdc-drawer.mdc-drawer--open:not(.mdc-drawer--opening) {
+        box-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
+    }
+
+.validation-message {
+    color: red;
+}
+
+.mdc-text-field {
+    width: 16rem;
+}
+
+.mdc-text-field__input.valid.modified {
+    border-bottom: 2px solid #10b510 !important;
+}
+
+.mdc-text-field__input.invalid {
+    border-bottom: 2px solid red !important;
+}
+
+.mdc-text-field + .validation-message {
+    margin-top: 0.3rem;
+}
+
+.pin-map {
+    position: absolute !important;
+    top: 64px; bottom: 0; left: 0; right: 0;
+}
+
+map-pin { display: none; }
+
+.pin-map .mapboxgl-popup-content {
+    background: #701660;
+    color: white;
+    box-shadow: 0 1px 6px 1px rgba(0,0,0,0.5);
+    padding: 0.5rem 1.3rem 0rem 1rem;
+    font-size: 120%;
+    width: 22rem;
+}
+
+    .pin-map .mapboxgl-popup-content h4 {
+        font-size: 120%;
+        font-weight: bold;
+        margin-top: 0.3rem;
+    }
+
+.pin-map .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+    border-bottom-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+    border-bottom-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+    border-bottom-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    border-top-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+    border-top-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+    border-top-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: #701660;
+}
+
+.pin-map .mapboxgl-popup-close-button {
+    color: white !important;
+}
+
+h1 + table {
+    margin-top: 1.5rem;
+}
+
+table.mdc-card {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mdc-card td, .mdc-card th {
+    text-align: left;
+    padding: 1rem;
+}
+
+.mdc-card tr:not(:last-child) td, .mdc-card th {
+    border-bottom: 1px solid #ddd;
+}

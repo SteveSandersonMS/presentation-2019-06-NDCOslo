@@ -1,0 +1,14 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="typeof(Program).Assembly">
+        <NotFoundContent>
+            <p>Sorry, there's nothing at this address.</p>
+        </NotFoundContent>
+        <NotAuthorizedContent>
+            <h1 class="@MdcTypography.H4">Access denied</h1>
+            <p>Only logged-in mission commanders may access this area.</p>
+        </NotAuthorizedContent>
+        <AuthorizingContent>
+            Wait...
+        </AuthorizingContent>
+    </Router>
+</CascadingAuthenticationState>

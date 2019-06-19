@@ -1,0 +1,30 @@
+﻿@inject IUriHelper UriHelper
+<footer class="fixed-bottom">
+    @if (Order.Model != null)
+    {
+        <div class="total-price">
+            Total:
+            $<span class="price">@Order.Quote.ToString("0,000")</span>
+        </div>
+    }
+
+    <button @onclick="@MoveNext">Next ></button>
+</footer>
+
+@functions {
+    [Parameter] CustomerOrder Order { get; set; }
+    [Parameter] string NextUrl { get; set; }
+    [Parameter] EventCallback OnNext { get; set; }
+
+    async Task MoveNext()
+    {
+        if (OnNext.HasDelegate)
+        {
+            await OnNext.InvokeAsync(null);
+        }
+        else if (NextUrl != null)
+        {
+            UriHelper.NavigateTo(NextUrl);
+        }
+    }
+}

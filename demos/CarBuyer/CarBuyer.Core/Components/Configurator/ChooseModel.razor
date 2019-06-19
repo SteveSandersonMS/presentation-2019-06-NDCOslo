@@ -1,0 +1,39 @@
+﻿@page "/"
+
+<ChoiceGroup Class="models" @bind-Value="@Order.Model">
+    <h2>Model</h2>
+
+    @foreach (var carModel in Catalog.Models)
+    {
+        <Choice Value="@carModel">
+            <h2>@((MarkupString)carModel.NameMarkup)</h2>
+            <p>From $<span class="price">@carModel.BasePrice.ToString("0,000")</span></p>
+        </Choice>
+    }
+</ChoiceGroup>
+
+<ChoiceGroup Class="engines" @bind-Value="@Order.Engine">
+
+    <h2>Engine</h2>
+
+    @foreach (var engine in Order.Model.EngineChoices)
+    {
+        <Choice Value="@engine">
+            <h2>@engine.Name</h2>
+            <p>
+                @engine.Description
+                @if (engine.Price > 0)
+                {
+                    <span class="price">@engine.Price.ToString("c0")</span>
+                }
+            </p>
+        </Choice>
+    }
+</ChoiceGroup>
+
+<SummaryFooter Order="@Order" NextUrl="options" />
+
+@functions {
+    [CascadingParameter] ProductCatalog Catalog { get; set; }
+    [CascadingParameter] CustomerOrder Order { get; set; }
+}
