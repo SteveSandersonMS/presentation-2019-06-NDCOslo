@@ -1,18 +1,1 @@
-﻿<AuthorizeView>
-    <Authorized>
-        <i class="material-icons">account_circle</i>
-        <span>
-            Hello, <strong>@context.User.Identity.Name</strong>!
-        </span>
-        <MdcButton OnClick="@loginDialog.LogOut">Log out</MdcButton>
-    </Authorized>
-    <NotAuthorized>
-        <MdcButton OnClick="@loginDialog.LogIn">Log in</MdcButton>
-    </NotAuthorized>
-</AuthorizeView>
-
-<LoginDialog @ref="@loginDialog" />
-
-@functions {
-    LoginDialog loginDialog;
-}
+﻿TODO: Show username etc.

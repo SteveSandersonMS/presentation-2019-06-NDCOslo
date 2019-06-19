@@ -39,7 +39,7 @@ namespace CarBuyer.ServerSide
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub<Core.Components.App>("app");
+                endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

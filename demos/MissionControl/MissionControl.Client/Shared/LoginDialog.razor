@@ -1,33 +1,26 @@
 @inject HttpClient Http
 @inject TokenAuthenticationStateProvider AuthStateProvider
 
-<EditForm Model="@credentials" OnValidSubmit="@SubmitCredentials">
-    <DataAnnotationsValidator />
-    <MdcDialog @ref="dialog" Title="Log in">
-        <Body>
-            <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
-            <ValidationMessage For="@(() => credentials.UserName)" />
+<MdcDialog @ref="dialog" Title="Log in">
+    <Body>
+        <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
+        <MdcTextField Label="Password" @bind-Value="@credentials.Password" Type="password" />
 
-            <MdcTextField Type="password" Label="Password" @bind-Value="@credentials.Password" />
-            <ValidationMessage For="@(() => credentials.Password)" />
+        <div class="mdc-form-field">
+            <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
+            <label for="accept-terms">I accept the terms</label>
+        </div>
 
-            <div class="mdc-form-field">
-                <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
-                <label for="accept-terms">I accept the terms</label>
-            </div>
-            <ValidationMessage For="@(() => credentials.AcceptTerms)" />
-
-            @if (lastLoginFailed)
-            {
-                <p class="validation-message">Login failed. Check your password.</p>
-            }
-        </Body>
-        <Buttons>
-            <MdcButton Type="submit">Log in</MdcButton>
-            <MdcButton DialogAction="close" ButtonStyle="@MdcButton.None">Cancel</MdcButton>
-        </Buttons>
-    </MdcDialog>
-</EditForm>
+        @if (lastLoginFailed)
+        {
+            <p class="validation-message">Login failed. Check your password.</p>
+        }
+    </Body>
+    <Buttons>
+        <MdcButton OnClick="@SubmitCredentials" Type="submit">Log in</MdcButton>
+        <MdcButton DialogAction="close" ButtonStyle="@MdcButton.None">Cancel</MdcButton>
+    </Buttons>
+</MdcDialog>
 
 @functions {
     MdcDialog dialog;

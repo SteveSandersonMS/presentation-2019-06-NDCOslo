@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace MissionControl.Server.Controllers
 {
@@ -9,10 +10,11 @@ namespace MissionControl.Server.Controllers
     [ApiController]
     public class AgentsController : Controller
     {
-        [Authorize]
         [HttpGet]
-        public IEnumerable<Agent> GetAgents()
+        public async Task<IEnumerable<Agent>> GetAgents()
         {
+            await Task.Delay(1000);
+
             return new List<Agent>
             {
                 new Agent { Longitude = -74.0060, Latitude = 40.7126, Name = "George Smiley", Mission = "Place listening device in City Hall" },

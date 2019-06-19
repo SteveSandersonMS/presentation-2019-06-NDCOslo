@@ -12,7 +12,7 @@
 </head>
 <body>
     <app>
-        <div class="loader">Loading...</div>
+        @(await Html.RenderComponentAsync<CarBuyer.Core.Components.App>())
     </app>
 
     <script src="_framework/blazor.server.js"></script>

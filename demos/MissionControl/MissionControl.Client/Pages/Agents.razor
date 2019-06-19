@@ -1,27 +1,36 @@
 ﻿@page "/agents"
-@using PinMapLibrary
-@attribute [Authorize]
 @inject HttpClient Http
-@inject TokenAuthenticationStateProvider TokenProvider
 
-@if (agents != null)
+<h1 class="@MdcTypography.H4">Agents</h1>
+
+@if (agents == null)
 {
-    <PinMap Data="@agents" PinLongitude="@(x => x.Longitude)" PinLatitude="@(x => x.Latitude)">
-        <PinTemplate>
-            <h4>@context.Name</h4>
-            <p><strong>Mission:</strong> @context.Mission</p>
-        </PinTemplate>
-    </PinMap>
+    <p>Loading...</p>
+}
+else
+{
+    <table class="mdc-card">
+        <tr>
+            <th>Name</th>
+            <th>Mission</th>
+            <th>Coordinates</th>
+        </tr>
+        @foreach (var agent in agents)
+        {
+            <tr>
+                <td><strong>@agent.Name</strong></td>
+                <td>@agent.Mission</td>
+                <td>@agent.Longitude.ToString("N4"), @agent.Latitude.ToString("N4")</td>
+            </tr>
+        }
+    </table>
 }
 
-@code {
+@functions {
     Agent[] agents;
 
     protected override async Task OnInitAsync()
     {
-        var token = await TokenProvider.GetTokenAsync();
-        agents = await Http.GetJsonAsync<Agent[]>(
-            "api/agents",
-            new AuthenticationHeaderValue("Bearer", token));
+        agents = await Http.GetJsonAsync<Agent[]>("api/agents");
     }
 }
