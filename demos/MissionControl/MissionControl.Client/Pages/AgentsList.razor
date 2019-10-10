@@ -38,7 +38,7 @@ else
 @code {
     Agent[] agents;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         var token = await TokenProvider.GetTokenAsync();
         agents = await Http.GetJsonAsync<Agent[]>(

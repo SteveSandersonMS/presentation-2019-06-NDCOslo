@@ -11,16 +11,15 @@
 </div>
 
 @code {
-    ElementRef mapElem;
+    ElementReference mapElem;
 
-    [Parameter] IEnumerable<TPin> Data { get; set; }
-    [Parameter] Func<TPin, double> PinLongitude { get; set; }
-    [Parameter] Func<TPin, double> PinLatitude { get; set; }
-    [Parameter] RenderFragment<TPin> PinTemplate { get; set; }
+    [Parameter] public IEnumerable<TPin> Data { get; set; }
+    [Parameter] public Func<TPin, double> PinLongitude { get; set; }
+    [Parameter] public Func<TPin, double> PinLatitude { get; set; }
+    [Parameter] public RenderFragment<TPin> PinTemplate { get; set; }
 
-    protected override Task OnAfterRenderAsync()
-        => JS.InvokeAsync<object>(
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+        => await JS.InvokeAsync<object>(
             "PinMap.createOrUpdate",
-            mapElem,
-            new[] { -74.00633, 40.71341 });
+            new object[] { mapElem, new[] { -74.00633, 40.71341 } });
 }
